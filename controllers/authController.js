@@ -37,3 +37,25 @@ module.exports.loginUser = async (req, res) => {
     res.status(400).json({ created: false });
   }
 };
+
+module.exports.updateLeaderBoard = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("Received score:", req.body.score);
+    user.score = req.body.score;
+    await user.save();
+
+    console.log("Updated user:", user);
+
+    res.status(200).json({ update: true });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(400)
+      .json({ message: "Error updating score", error: err.message });
+  }
+};

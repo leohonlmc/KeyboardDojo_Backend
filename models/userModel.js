@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password!"],
   },
+  score: {
+    //double type
+    type: Number,
+  },
 });
 
 UserSchema.statics.login = async function (email, password) {
