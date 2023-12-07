@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide a password!"],
   },
   score: {
-    //double type
     type: Number,
   },
 });
@@ -19,8 +18,6 @@ UserSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
 
   if (user) {
-    // const auth = await bcrypt.compare(password, user.password);
-
     const auth = password === user.password;
 
     if (auth) {

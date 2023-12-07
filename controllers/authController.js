@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const { model } = require("mongoose");
 const maxAge = 3 * 24 * 60 * 60;
 require("dotenv").config();
 
@@ -45,11 +46,8 @@ module.exports.updateLeaderBoard = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log("Received score:", req.body.score);
     user.score = req.body.score;
     await user.save();
-
-    console.log("Updated user:", user);
 
     res.status(200).json({ update: true });
   } catch (err) {
@@ -57,5 +55,15 @@ module.exports.updateLeaderBoard = async (req, res) => {
     res
       .status(400)
       .json({ message: "Error updating score", error: err.message });
+  }
+};
+
+module.exports.getLeaderBoard = async (req, res) => {
+  try {
+    const users = await User.find({}).sort({ score: -1 }).limit(5);
+    res.status(200).json({ users });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: "Error getting leaderboard" });
   }
 };
