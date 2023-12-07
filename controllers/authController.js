@@ -45,7 +45,6 @@ module.exports.updateLeaderBoard = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
     user.score = req.body.score;
     await user.save();
 
@@ -61,6 +60,7 @@ module.exports.updateLeaderBoard = async (req, res) => {
 module.exports.getLeaderBoard = async (req, res) => {
   try {
     const users = await User.find({}).sort({ score: -1 }).limit(5);
+
     res.status(200).json({ users });
   } catch (err) {
     console.error(err);
