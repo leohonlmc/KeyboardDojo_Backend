@@ -8,6 +8,7 @@ router.post("/login", authController.loginUser);
 router.post("/update/:id", authController.updateLeaderBoard);
 router.get("/leaderboard", authController.getLeaderBoard);
 router.get("/user/:id", authController.getUser);
+router.get("/users", authController.getUsers);
 router.post("/chat", chatController.createChat);
 router.get("/api/chat", chatController.getChat);
 

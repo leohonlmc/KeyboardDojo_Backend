@@ -53,6 +53,20 @@ module.exports.getUser = async (req, res) => {
   }
 };
 
+module.exports.getUsers = async (req, res) => {
+  try {
+    const user = await User.find({});
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(400).json({ message: "Error getting user" });
+  }
+};
+
 module.exports.updateLeaderBoard = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
