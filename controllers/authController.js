@@ -33,9 +33,23 @@ module.exports.loginUser = async (req, res) => {
 
     const token = createToken(user._id);
 
-    res.status(200).json({ user: user._id, token, login: true });
+    res.status(200).json({ user: user._id, token, email, login: true });
   } catch (err) {
     res.status(400).json({ created: false });
+  }
+};
+
+module.exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(400).json({ message: "Error getting user" });
   }
 };
 
