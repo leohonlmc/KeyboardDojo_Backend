@@ -11,5 +11,6 @@ router.get("/user/:id", authController.getUser);
 router.get("/users", authController.getUsers);
 router.post("/chat", chatController.createChat);
 router.get("/api/chat", chatController.getChat);
+router.delete("/api/chat/:id", chatController.deleteChat);
 
 module.exports = router;
